@@ -1,0 +1,368 @@
+:root {
+    --bg-primary: #121829;
+    --bg-secondary: #1e293b;
+    --bg-card: #334155;
+    --text-light: #f8fafc;
+    --text-medium: #cbd5e1;
+    --text-dark: #121829;
+    --accent-gold: #f5c518;
+    --accent-gold-hover: #ffdd45;
+    --danger-red: #ef4444;
+    --danger-red-hover: #f87171;
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --border-radius: 8px;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-stack);
+    background: var(--bg-primary);
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow-md);
+    border-bottom: 1px solid var(--bg-card);
+}
+
+header h1 {
+    font-size: 1.75rem;
+}
+
+.add-note-btn {
+    background: var(--accent-gold);
+    color: var(--text-dark);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.add-note-btn:hover {
+    background: var(--accent-gold-hover);
+    transform: scale(1.05);
+}
+
+main {
+    max-width: 1200px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+    width: 100%;
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.note-card {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+}
+
+.note-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-light);
+    word-wrap: break-word;
+}
+
+.note-content {
+    color: var(--text-medium);
+    margin-bottom: 1rem;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    flex-grow: 1;
+}
+
+.note-actions {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+}
+
+.note-card:hover .note-actions {
+    opacity: 1;
+    visibility: visible;
+}
+
+.edit-btn,
+.delete-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background: var(--bg-secondary);
+    color: var(--text-light);
+}
+
+.edit-btn:hover {
+    background: var(--accent-gold);
+    color: var(--text-dark);
+}
+
+.delete-btn:hover {
+    background: var(--danger-red);
+    color: white;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-medium);
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+}
+
+.empty-state h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+dialog {
+    margin: auto;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0;
+    background: var(--bg-secondary);
+    color: var(--text-light);
+    max-width: 500px;
+    width: 90vw;
+    box-shadow: var(--shadow-lg);
+}
+
+dialog::backdrop {
+    background: rgba(18, 24, 41, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+.dialog-content {
+    padding: 2rem;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.dialog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    /* Powiększone 'x' */
+    font-weight: 300;
+    cursor: pointer;
+    color: var(--text-medium);
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--danger-red);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--bg-card);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: var(--bg-card);
+    color: var(--text-light);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.3);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background: var(--bg-card);
+    color: var(--text-light);
+}
+
+.cancel-btn:hover {
+    opacity: 0.8;
+}
+
+.save-btn {
+    background: var(--accent-gold);
+    color: var(--text-dark);
+}
+
+.save-btn:hover {
+    background: var(--accent-gold-hover);
+}
+
+.note-content {
+    line-height: 1.7;
+}
+
+.note-content h1,
+.note-content h2,
+.note-content h3 {
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.note-content p {
+    margin-bottom: 0.75rem;
+}
+
+.note-content ul,
+.note-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.note-content li {
+    margin-bottom: 0.25rem;
+}
+
+.note-content blockquote {
+    border-left: 4px solid var(--accent-gold);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: var(--text-medium);
+}
+
+.note-content code {
+    background: var(--bg-primary);
+    color: var(--accent-gold);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.note-content a {
+    color: var(--accent-gold);
+    text-decoration: none;
+}
+
+.note-content a:hover {
+    text-decoration: underline;
+}
+
+.search-wrapper {
+    max-width: 1200px;
+    margin: 0 auto 1.5rem auto;
+    padding: 0 1.5rem;
+    margin-top: 40px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--bg-card);
+    background: var(--bg-card);
+    color: var(--text-light);
+    transition: all 0.2s ease;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.3);
+}
+
+#searchInput::placeholder {
+    color: var(--text-medium);
+}
